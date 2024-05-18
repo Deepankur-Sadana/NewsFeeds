@@ -6,6 +6,7 @@ import androidx.paging.PagingState
 
 class NewsPagingSource (
     private val newsApiService: NewsApiService,
+    private val query : String = ""
 ): PagingSource<Int, Article>() {
     override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -17,7 +18,11 @@ class NewsPagingSource (
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         return try {
             val page = params.key ?: 1
-            val response = newsApiService.getNews(page = page , "india")
+            val response =
+                if(query.isNullOrEmpty())
+                    newsApiService.getNews(page = page)
+            else
+                newsApiService.getSearchedNews(page = page , query)
             Log.d("NewsPagingSource","$response")
 
             LoadResult.Page(

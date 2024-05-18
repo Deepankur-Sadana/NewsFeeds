@@ -20,7 +20,6 @@ import com.example.newslistwithsearchsample.data.Article
 fun PagingListScreen() {
     val viewModel = hiltViewModel<NewsViewModel>()
 
-    val articles = viewModel.getLatestNews().collectAsLazyPagingItems()
 
   /*  LazyColumn {
         items(

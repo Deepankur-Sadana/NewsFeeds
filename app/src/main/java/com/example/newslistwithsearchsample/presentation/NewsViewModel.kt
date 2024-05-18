@@ -7,7 +7,10 @@ import androidx.paging.cachedIn
 import com.example.newslistwithsearchsample.data.Article
 import com.example.newslistwithsearchsample.data.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
 import javax.inject.Inject
 
 
@@ -15,7 +18,16 @@ import javax.inject.Inject
 class NewsViewModel @Inject constructor(
     private val repository: NewsRepository,
 ): ViewModel() {
-    fun getLatestNews(): Flow<PagingData<Article>> = repository
-        .getNews()
-        .cachedIn(viewModelScope)
+
+    private val _currentQuery = MutableStateFlow("")
+    fun notifyTextChanged(it: String) {
+        _currentQuery.value = it
+    }
+
+    @OptIn(FlowPreview::class)
+    fun queryLatestNews(): Flow<PagingData<Article>> {
+        return repository
+            .getQueriedNews(_currentQuery.debounce(1000))
+            .cachedIn(viewModelScope)
+    }
 }

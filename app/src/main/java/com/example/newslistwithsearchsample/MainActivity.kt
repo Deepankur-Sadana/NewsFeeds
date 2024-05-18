@@ -69,7 +69,7 @@ fun CollapsingTopAppBar() {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     var text by rememberSaveable { mutableStateOf("") }
     val viewModel = hiltViewModel<NewsViewModel>()
-    val articles = viewModel.getLatestNews().collectAsLazyPagingItems()
+    val articles = viewModel.queryLatestNews().collectAsLazyPagingItems()
 
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -77,11 +77,14 @@ fun CollapsingTopAppBar() {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
+//            val textState = remember { mutableStateOf(TextFieldValue()) }
+
             TopAppBar(
-                title = {    TextField(
+                title = {TextField(
                     value = text,
                     onValueChange = {
                         text = it
+                        viewModel.notifyTextChanged(it)
                     },
                     label = { Text("Search news") }
                 ) },
