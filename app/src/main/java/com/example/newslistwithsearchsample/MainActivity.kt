@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
 //                    Greeting("Android................ 12345")
 //                    PagingListScreen()
                     val viewModel = hiltViewModel<NewsViewModel>()
-                    val articles = viewModel.getBreakingNews().collectAsLazyPagingItems()
+                    val articles = viewModel.getLatestNews().collectAsLazyPagingItems()
                     ArticleListContent(articles,navigateToDetail = {})
                 }
             }

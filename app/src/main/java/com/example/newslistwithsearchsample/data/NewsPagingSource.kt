@@ -17,7 +17,7 @@ class NewsPagingSource (
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         return try {
             val page = params.key ?: 1
-            val response = newsApiService.getNews(page = page)
+            val response = newsApiService.getNews(page = page , "india")
             Log.d("NewsPagingSource","$response")
 
             LoadResult.Page(

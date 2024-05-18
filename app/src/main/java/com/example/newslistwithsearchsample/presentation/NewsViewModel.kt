@@ -15,5 +15,7 @@ import javax.inject.Inject
 class NewsViewModel @Inject constructor(
     private val repository: NewsRepository,
 ): ViewModel() {
-    fun getBreakingNews(): Flow<PagingData<Article>> = repository.getNews().cachedIn(viewModelScope)
+    fun getLatestNews(): Flow<PagingData<Article>> = repository
+        .getNews()
+        .cachedIn(viewModelScope)
 }
