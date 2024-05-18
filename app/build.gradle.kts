@@ -90,12 +90,15 @@ dependencies {
     val retrofit_version = "2.9.0"
     implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
 
     val hilt_version = "2.48"
     implementation ("com.google.dagger:hilt-android:$hilt_version")
     kapt ("com.google.dagger:hilt-compiler:$hilt_version")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
-
+    // COIL
+    implementation ("io.coil-kt:coil-compose:2.4.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation ("org.mockito.kotlin:mockito-kotlin:5.3.1")
