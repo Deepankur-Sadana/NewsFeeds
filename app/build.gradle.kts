@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
 }
 
 android {
@@ -37,6 +37,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += ("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
+        freeCompilerArgs += ("-opt-in=androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi")
+        freeCompilerArgs += ("-opt-in=androidx.paging.ExperimentalPagingApi")
+        freeCompilerArgs += ("-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi")
     }
     buildFeatures {
         compose = true
@@ -84,28 +88,25 @@ dependencies {
     implementation("androidx.paging:paging-compose:3.3.0-beta01")
 
 
-
-
-
     val retrofit_version = "2.9.0"
-    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
 
     val hilt_version = "2.48"
-    implementation ("com.google.dagger:hilt-android:$hilt_version")
-    kapt ("com.google.dagger:hilt-compiler:$hilt_version")
-    implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-compiler:$hilt_version")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     // COIL
-    implementation ("io.coil-kt:coil-compose:2.4.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation ("org.mockito.kotlin:mockito-kotlin:5.3.1")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
     /** for testing coroutines*/
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation ("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-    testImplementation ("com.google.truth:truth:1.4.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("com.google.truth:truth:1.4.2")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
