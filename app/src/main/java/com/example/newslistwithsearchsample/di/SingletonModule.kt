@@ -1,7 +1,10 @@
 package com.example.newslistwithsearchsample.di
 
 
+import com.example.newslistwithsearchsample.data.Article
 import com.example.newslistwithsearchsample.data.NewsApiService
+import com.example.newslistwithsearchsample.data.NewsResponse
+import com.example.newslistwithsearchsample.data.Source
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,19 +21,50 @@ class SingletonModule {
 
     @Singleton
     @Provides
-    fun provideOkhttpClient()  : OkHttpClient {
-        val interceptor =  HttpLoggingInterceptor();
+    fun provideOkhttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return  OkHttpClient.Builder().addInterceptor(interceptor).build();
+        return OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
+
     @Singleton
     @Provides
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): NewsApiService {
-        val retrofit =  Retrofit.Builder()
+        return FakeNewsAPIService()
+        val retrofit = Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://newsapi.org/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         return retrofit.create(NewsApiService::class.java)
     }
+}
+
+class FakeNewsAPIService : NewsApiService {
+    override suspend fun getNews(page: Int): NewsResponse {
+        return NewsResponse(getArticles(), "", 20)
+    }
+
+    override suspend fun getSearchedNews(page: Int, query: String?): NewsResponse {
+        return NewsResponse(getArticles(), "", 20)
+    }
+
+    private fun getArticles(): List<Article> {
+        val articles = ArrayList<Article>()
+        for (i in 1..20) {
+            val a = Article(
+                author = "author $i",
+                content = "content $i",
+                description = "description $i",
+                publishedAt = "publishedAt $i",
+                source = Source("", ""),
+                title = "title $i",
+                url = "",
+                urlToImage = "https://fastly.picsum.photos/id/146/536/354.jpg?hmac=4P0o1OZvYRJq_jIExQUpqq4kQzW518ORptvq2blN-qU"
+            )
+            articles.add(a)
+        }
+        return articles
+    }
+
 }
