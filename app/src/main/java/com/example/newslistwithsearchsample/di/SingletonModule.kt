@@ -50,6 +50,8 @@ class FakeNewsAPIService : NewsApiService {
     }
 
     private fun getArticles(): List<Article> {
+//        throw Exception("Run time error")
+
         val articles = ArrayList<Article>()
         for (i in 1..20) {
             val a = Article(

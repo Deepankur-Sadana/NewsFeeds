@@ -8,7 +8,9 @@ plugins {
 android {
     namespace = "com.example.newslistwithsearchsample"
     compileSdk = 34
-
+    buildFeatures {
+        viewBinding = true
+    }
     defaultConfig {
         applicationId = "com.example.newslistwithsearchsample"
         minSdk = 24

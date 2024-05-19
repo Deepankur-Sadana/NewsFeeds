@@ -94,6 +94,12 @@ fun ArticleListContent(
     Box(modifier = Modifier.fillMaxSize()) {
         if (articleLazyPagingItems.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        } else if(articleLazyPagingItems.loadState.refresh is  LoadState.Error) {
+            Text(
+                modifier = Modifier
+                    .height(75.dp),
+                text = (articleLazyPagingItems.loadState.refresh as LoadState.Error).error.toString(),
+            )
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

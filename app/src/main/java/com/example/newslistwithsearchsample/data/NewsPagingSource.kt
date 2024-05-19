@@ -9,10 +9,12 @@ class NewsPagingSource (
     private val query : String = ""
 ): PagingSource<Int, Article>() {
     override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
+        val res = state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
+        Log.d("NewsPagingSource" ,"getRefreshKey res $res")
+        return res
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
