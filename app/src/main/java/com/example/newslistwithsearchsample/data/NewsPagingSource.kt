@@ -23,7 +23,7 @@ class NewsPagingSource (
         return try {
             val page = params.key ?: 1
             val response =
-                if(query.isNullOrEmpty())
+                if(query.isEmpty())
                     newsApiService.getNews(page = page)
             else
                 newsApiService.getSearchedNews(page = page , query)
