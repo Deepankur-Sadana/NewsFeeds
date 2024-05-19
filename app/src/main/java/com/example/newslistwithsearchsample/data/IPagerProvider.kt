@@ -3,6 +3,8 @@ package com.example.newslistwithsearchsample.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.newslistwithsearchsample.data.entity.Article
+import com.example.newslistwithsearchsample.data.remote.NewsApiService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

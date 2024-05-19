@@ -11,9 +11,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.example.newslistwithsearchsample.data.Article
+import com.example.newslistwithsearchsample.data.entity.Article
 
 //import androidx.paging.compose.items
 @Composable

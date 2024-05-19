@@ -1,10 +1,9 @@
 package com.example.newslistwithsearchsample.data
 
+import com.example.newslistwithsearchsample.data.remote.NewsApiService
+import com.example.newslistwithsearchsample.data.remote.NewsRepository
 import com.google.common.truth.Truth
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking

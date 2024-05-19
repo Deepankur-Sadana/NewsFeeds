@@ -1,18 +1,15 @@
 package com.example.newslistwithsearchsample.presentation
 
 import androidx.paging.PagingData
-import com.example.newslistwithsearchsample.data.Article
-import com.example.newslistwithsearchsample.data.NewsRepository
+import com.example.newslistwithsearchsample.data.entity.Article
+import com.example.newslistwithsearchsample.data.remote.NewsRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain

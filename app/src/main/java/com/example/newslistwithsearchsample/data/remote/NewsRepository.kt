@@ -1,9 +1,12 @@
-package com.example.newslistwithsearchsample.data
+package com.example.newslistwithsearchsample.data.remote
 
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.newslistwithsearchsample.data.IPagerProvider
+import com.example.newslistwithsearchsample.data.NewsPagingSource
+import com.example.newslistwithsearchsample.data.entity.Article
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest

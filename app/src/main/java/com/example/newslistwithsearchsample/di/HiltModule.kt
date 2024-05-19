@@ -1,8 +1,8 @@
 package com.example.newslistwithsearchsample.di
 
 import com.example.newslistwithsearchsample.data.IPagerProvider
-import com.example.newslistwithsearchsample.data.NewsApiService
-import com.example.newslistwithsearchsample.data.NewsRepository
+import com.example.newslistwithsearchsample.data.remote.NewsApiService
+import com.example.newslistwithsearchsample.data.remote.NewsRepository
 import com.example.newslistwithsearchsample.data.PagerProviderImpl
 import dagger.Module
 import dagger.Provides

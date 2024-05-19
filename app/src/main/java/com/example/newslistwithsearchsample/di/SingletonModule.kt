@@ -1,10 +1,10 @@
 package com.example.newslistwithsearchsample.di
 
 
-import com.example.newslistwithsearchsample.data.Article
-import com.example.newslistwithsearchsample.data.NewsApiService
-import com.example.newslistwithsearchsample.data.NewsResponse
-import com.example.newslistwithsearchsample.data.Source
+import com.example.newslistwithsearchsample.data.entity.Article
+import com.example.newslistwithsearchsample.data.remote.NewsApiService
+import com.example.newslistwithsearchsample.data.entity.NewsResponse
+import com.example.newslistwithsearchsample.data.entity.Source
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

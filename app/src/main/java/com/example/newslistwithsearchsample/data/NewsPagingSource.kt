@@ -3,6 +3,8 @@ package com.example.newslistwithsearchsample.data
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.newslistwithsearchsample.data.entity.Article
+import com.example.newslistwithsearchsample.data.remote.NewsApiService
 
 class NewsPagingSource (
     private val newsApiService: NewsApiService,

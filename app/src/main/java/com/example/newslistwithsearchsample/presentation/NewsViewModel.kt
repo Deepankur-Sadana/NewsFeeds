@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.newslistwithsearchsample.data.Article
-import com.example.newslistwithsearchsample.data.NewsRepository
+import com.example.newslistwithsearchsample.data.entity.Article
+import com.example.newslistwithsearchsample.data.remote.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow

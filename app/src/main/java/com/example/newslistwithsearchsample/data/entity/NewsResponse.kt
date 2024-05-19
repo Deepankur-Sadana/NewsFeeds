@@ -1,4 +1,4 @@
-package com.example.newslistwithsearchsample.data
+package com.example.newslistwithsearchsample.data.entity
 
 data class NewsResponse(
     val articles: List<Article>,
