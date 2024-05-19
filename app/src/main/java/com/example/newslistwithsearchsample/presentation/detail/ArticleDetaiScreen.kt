@@ -45,8 +45,19 @@ fun ArticleDetailContent(articleDetailsResponse: Response<ArticleDetails>) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (articleDetailsResponse.data != null) {
             val article = articleDetailsResponse.data!!
+            Column {
+                Text(
+                    article.title,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
 
-            Row(modifier = Modifier.padding(20.dp)) {
+                }
+            }
+
+
+            Row(modifier = Modifier.padding(20.dp) .padding(48.dp)) {
                 AsyncImage(
                     model = article.imageUrl,
                     modifier = Modifier.width(500.dp),
@@ -54,16 +65,6 @@ fun ArticleDetailContent(articleDetailsResponse: Response<ArticleDetails>) {
                     contentDescription = null,
                 )
                 Spacer(modifier = Modifier.width(20.dp))
-                Column {
-                    Text(
-                        article.title,
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-
-                    }
-                }
             }
         }
         if (articleDetailsResponse is Response.Loading) {
