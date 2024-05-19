@@ -2,8 +2,7 @@ package com.example.newslistwithsearchsample.data
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-//TODO ds
-// move keys to constants
+//TODO ds move keys to constants
 const val API_KEY = "bec9e15c34b84630a108baa54f09be9c"
 interface NewsApiService {
     @GET("top-headlines?q=us&apiKey=${API_KEY}&pageSize=20")
