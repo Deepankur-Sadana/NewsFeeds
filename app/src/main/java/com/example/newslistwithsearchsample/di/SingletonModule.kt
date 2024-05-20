@@ -1,11 +1,17 @@
 package com.example.newslistwithsearchsample.di
 
 
+import android.content.Context
+import androidx.room.Room
+import com.example.newslistwithsearchsample.data.local.ArticlesDatabase
+import com.example.newslistwithsearchsample.data.local.ArticlesDao
+import com.example.newslistwithsearchsample.data.local.RemoteKeysDao
 import com.example.newslistwithsearchsample.data.remote.FakeNewsAPIService
 import com.example.newslistwithsearchsample.data.remote.NewsApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,7 +34,7 @@ class SingletonModule {
     @Singleton
     @Provides
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): NewsApiService {
-        return FakeNewsAPIService()
+//        return FakeNewsAPIService()
         val retrofit = Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://newsapi.org/v2/")
@@ -36,5 +42,23 @@ class SingletonModule {
             .build()
         return retrofit.create(NewsApiService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideMovieDatabase(@ApplicationContext context: Context): ArticlesDatabase =
+        Room
+            .databaseBuilder(context, ArticlesDatabase::class.java, "articles_database")
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideMoviesDao(moviesDatabase: ArticlesDatabase): ArticlesDao =
+        moviesDatabase.getMoviesDao()
+
+    @Singleton
+    @Provides
+    fun provideRemoteKeysDao(
+        moviesDatabase: ArticlesDatabase
+    ): RemoteKeysDao = moviesDatabase.getRemoteKeysDao()
 }
 

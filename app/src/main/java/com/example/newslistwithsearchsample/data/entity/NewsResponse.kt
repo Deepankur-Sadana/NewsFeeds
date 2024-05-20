@@ -29,12 +29,14 @@ data class Article(
     @ColumnInfo(name = "description")
     val description: String,
     val publishedAt: String,
-    val source: Source,
     @ColumnInfo(name = "title")
     val title: String,
+//    @ColumnInfo(name = "url")
     val url: String,
     @ColumnInfo(name = "urlToImage")
-    val urlToImage: String
+    val urlToImage: String,
+    @ColumnInfo(name = "page")
+    var page: Int,
 )
 
 fun getUUID(): String {

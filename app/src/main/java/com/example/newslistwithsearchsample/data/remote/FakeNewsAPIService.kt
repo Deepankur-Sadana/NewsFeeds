@@ -24,10 +24,11 @@ class FakeNewsAPIService : NewsApiService {
                 content = "content $i",
                 description = "description $i",
                 publishedAt = "publishedAt $i",
-                source = Source("", ""),
+
                 title = "title $i",
                 url = "",
-                urlToImage = "https://fastly.picsum.photos/id/146/536/354.jpg?hmac=4P0o1OZvYRJq_jIExQUpqq4kQzW518ORptvq2blN-qU"
+                urlToImage = "https://fastly.picsum.photos/id/146/536/354.jpg?hmac=4P0o1OZvYRJq_jIExQUpqq4kQzW518ORptvq2blN-qU",
+                page = 1
             )
             articles.add(a)
         }

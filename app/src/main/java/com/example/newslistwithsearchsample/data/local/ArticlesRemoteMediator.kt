@@ -19,9 +19,10 @@ import java.util.concurrent.TimeUnit
  * where a PagingSource can load it and provide it to the UI to display.
  */
 @OptIn(ExperimentalPagingApi::class)
-class MoviesRemoteMediator (
+class ArticlesRemoteMediator(
     private val newsApiService: NewsApiService,
     private val articlesDatabase: ArticlesDatabase,
+    private val path: String,
 ): RemoteMediator<Int, Article>() {
     /**
      * When additional data is needed, the Paging library calls the load() method from the RemoteMediator implementation.
@@ -133,11 +134,11 @@ class MoviesRemoteMediator (
         }
 
         try {
-            val apiResponse = newsApiService.getPopularMovies(page = page)
+            val apiResponse = newsApiService.getSearchedNews(page, query = path)//newsApiService.getPopularMovies(page = page)
 
             delay(1000L) //TODO For testing only!
 
-            val movies = apiResponse.movies
+            val movies = apiResponse.articles
             val endOfPaginationReached = movies.isEmpty()
 
             articlesDatabase.withTransaction {
@@ -151,10 +152,13 @@ class MoviesRemoteMediator (
                     RemoteKeys(articleID = it.id, prevKey = prevKey, currentPage = page, nextKey = nextKey)
                 }
 
-                articlesDatabase.getRemoteKeysDao()
-                    .insertAll(remoteKeys)
-                articlesDatabase.getMoviesDao()
-                    .insertAll(movies.onEachIndexed { _, movie -> movie.page = page })
+                if (path.isEmpty()) {
+                    articlesDatabase.getRemoteKeysDao()
+                        .insertAll(remoteKeys)
+                    articlesDatabase.getMoviesDao()
+                        .insertAll(movies.onEachIndexed { _, movie -> movie.page = page })
+                }
+
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (error: IOException) {

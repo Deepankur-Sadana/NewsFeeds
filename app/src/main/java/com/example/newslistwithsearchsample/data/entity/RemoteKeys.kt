@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
 data class RemoteKeys(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "articleId_id")
-    val articleID: Int,
+    val articleID: String,
     val prevKey: Int?,
     val currentPage: Int,
     val nextKey: Int?,

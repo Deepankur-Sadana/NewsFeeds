@@ -1,6 +1,5 @@
 package com.example.newslistwithsearchsample.data.local
 
-import android.provider.MediaStore.Audio.Artists
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -9,14 +8,14 @@ import androidx.room.Query
 import com.example.newslistwithsearchsample.data.entity.Article
 
 @Dao
-interface MoviesDao {
+interface ArticlesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(movies: List<Artists>)
+    suspend fun insertAll(movies: List<Article>)
 
-    @Query("Select * From movies Order By page")
+    @Query("Select * From articles Order By page")
     fun getMovies(): PagingSource<Int, Article>
 
-    @Query("Delete From movies")
+    @Query("Delete From articles")
     suspend fun clearAllMovies()
 }
