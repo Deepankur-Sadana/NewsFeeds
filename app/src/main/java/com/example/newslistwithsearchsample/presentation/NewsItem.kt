@@ -36,7 +36,7 @@ fun NewsItem(
             contentDescription = null,
         )
         Text(
-            "#${article.author} -",
+            "#${article?.author} -",
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 16.dp),

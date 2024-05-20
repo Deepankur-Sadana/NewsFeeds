@@ -11,11 +11,11 @@ import com.example.newslistwithsearchsample.data.entity.Article
 interface ArticlesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(movies: List<Article>)
+    suspend fun insertAll(articles: List<Article>)
 
     @Query("Select * From articles Order By page")
-    fun getMovies(): PagingSource<Int, Article>
+    fun getArticles(): PagingSource<Int, Article>
 
     @Query("Delete From articles")
-    suspend fun clearAllMovies()
+    suspend fun clearAllArticles()
 }

@@ -22,14 +22,7 @@ class PagerProviderImpl
     ) :
     IPagerProvider {
     override fun getPagedData(path: String): Flow<PagingData<Article>> {
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = 20,
-//            ),
-//            pagingSourceFactory = {
-//                NewsPagingSource(newsApiService, path)
-//            }
-//        ).flow
+
 
         return Pager(
             config = PagingConfig(
@@ -38,7 +31,7 @@ class PagerProviderImpl
             pagingSourceFactory = {
                 // The pagingSourceFactory lambda should always return a brand new PagingSource
                 // when invoked as PagingSource instances are not reusable.
-                articlesDatabase.getMoviesDao().getMovies()
+                articlesDatabase.getArticlesDao().getArticles()
             },
             remoteMediator = ArticlesRemoteMediator(
                 newsApiService,

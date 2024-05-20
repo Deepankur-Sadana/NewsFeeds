@@ -11,6 +11,7 @@ import com.example.newslistwithsearchsample.data.remote.NewsApiService
 import kotlinx.coroutines.delay
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 /**
@@ -62,8 +63,8 @@ class ArticlesRemoteMediator(
         // From that last page, get the last item
         return state.pages.lastOrNull {
             it.data.isNotEmpty()
-        }?.data?.lastOrNull()?.let { movie ->
-            articlesDatabase.getRemoteKeysDao().getRemoteKeyByMovieID(movie.id)
+        }?.data?.lastOrNull()?.let { article ->
+            articlesDatabase.getRemoteKeysDao().getRemoteKeyByArticleID(article.id)
         }
     }
 
@@ -75,8 +76,8 @@ class ArticlesRemoteMediator(
         // From that first page, get the first item
         return state.pages.firstOrNull {
             it.data.isNotEmpty()
-        }?.data?.firstOrNull()?.let { movie ->
-            articlesDatabase.getRemoteKeysDao().getRemoteKeyByMovieID(movie.id)
+        }?.data?.firstOrNull()?.let { article ->
+            articlesDatabase.getRemoteKeysDao().getRemoteKeyByArticleID(article.id)
         }
     }
 
@@ -91,7 +92,7 @@ class ArticlesRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
-                articlesDatabase.getRemoteKeysDao().getRemoteKeyByMovieID(id)
+                articlesDatabase.getRemoteKeysDao().getRemoteKeyByArticleID(id)
             }
         }
     }
@@ -139,19 +140,20 @@ class ArticlesRemoteMediator(
             else
                 newsApiService.getSearchedNews(page, query = path)
 
+            apiResponse.articles.forEach { it.id = UUID.randomUUID().toString() }
             delay(1000L) //TODO For testing only!
 
-            val movies = apiResponse.articles
-            val endOfPaginationReached = movies.isEmpty()
+            val articles = apiResponse.articles
+            val endOfPaginationReached = articles.isEmpty()
 
             articlesDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     articlesDatabase.getRemoteKeysDao().clearRemoteKeys()
-                    articlesDatabase.getMoviesDao().clearAllMovies()
+                    articlesDatabase.getArticlesDao().clearAllArticles()
                 }
                 val prevKey = if (page > 1) page - 1 else null
                 val nextKey = if (endOfPaginationReached) null else page + 1
-                val remoteKeys = movies.map {
+                val remoteKeys = articles.map {
                     RemoteKeys(articleID = it.id, prevKey = prevKey, currentPage = page, nextKey = nextKey)
                 }
 
@@ -159,8 +161,8 @@ class ArticlesRemoteMediator(
                 if (path.isEmpty()) {
                     articlesDatabase.getRemoteKeysDao()
                         .insertAll(remoteKeys)
-                    articlesDatabase.getMoviesDao()
-                        .insertAll(movies.onEachIndexed { _, movie -> movie.page = page })
+                    articlesDatabase.getArticlesDao()
+                        .insertAll(articles.onEachIndexed { _, article -> article.page = page })
                 }
 
             }

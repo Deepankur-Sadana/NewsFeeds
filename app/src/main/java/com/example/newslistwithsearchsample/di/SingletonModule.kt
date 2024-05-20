@@ -6,7 +6,6 @@ import androidx.room.Room
 import com.example.newslistwithsearchsample.data.local.ArticlesDatabase
 import com.example.newslistwithsearchsample.data.local.ArticlesDao
 import com.example.newslistwithsearchsample.data.local.RemoteKeysDao
-import com.example.newslistwithsearchsample.data.remote.FakeNewsAPIService
 import com.example.newslistwithsearchsample.data.remote.NewsApiService
 import dagger.Module
 import dagger.Provides
@@ -45,20 +44,20 @@ class SingletonModule {
 
     @Singleton
     @Provides
-    fun provideMovieDatabase(@ApplicationContext context: Context): ArticlesDatabase =
+    fun articlesDatabase(@ApplicationContext context: Context): ArticlesDatabase =
         Room
             .databaseBuilder(context, ArticlesDatabase::class.java, "articles_database")
             .build()
 
     @Singleton
     @Provides
-    fun provideMoviesDao(moviesDatabase: ArticlesDatabase): ArticlesDao =
-        moviesDatabase.getMoviesDao()
+    fun provideArticlesDao(articlesDatabase: ArticlesDatabase): ArticlesDao =
+        articlesDatabase.getArticlesDao()
 
     @Singleton
     @Provides
     fun provideRemoteKeysDao(
-        moviesDatabase: ArticlesDatabase
-    ): RemoteKeysDao = moviesDatabase.getRemoteKeysDao()
+        articlesDatabase: ArticlesDatabase
+    ): RemoteKeysDao = articlesDatabase.getRemoteKeysDao()
 }
 

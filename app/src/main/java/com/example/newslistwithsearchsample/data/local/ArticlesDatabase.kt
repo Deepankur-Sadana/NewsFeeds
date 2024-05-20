@@ -10,6 +10,6 @@ import com.example.newslistwithsearchsample.data.entity.RemoteKeys
     version = 1,
 )
 abstract class ArticlesDatabase: RoomDatabase() {
-    abstract fun getMoviesDao(): ArticlesDao
+    abstract fun getArticlesDao(): ArticlesDao
     abstract fun getRemoteKeysDao(): RemoteKeysDao
 }

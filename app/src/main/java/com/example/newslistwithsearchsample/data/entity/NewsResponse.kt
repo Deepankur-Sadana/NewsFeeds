@@ -22,9 +22,9 @@ data class Source(
 @Entity(tableName = "articles")
 data class Article(
     @PrimaryKey(autoGenerate = false)
-    val id: String = getUUID(),
+    var id: String = getUUID(),
     @ColumnInfo(name = "author")
-    val author: String,
+    val author: String?,
     val content: String,
     @ColumnInfo(name = "description")
     val description: String,
@@ -34,12 +34,13 @@ data class Article(
 //    @ColumnInfo(name = "url")
     val url: String,
     @ColumnInfo(name = "urlToImage")
-    val urlToImage: String,
+    val urlToImage: String?,
     @ColumnInfo(name = "page")
     var page: Int,
 )
 
 fun getUUID(): String {
+
     val uuid = UUID.randomUUID()
     val uuidAsString = uuid.toString()
    return uuidAsString
