@@ -28,7 +28,7 @@ class SingletonModule {
     @Singleton
     @Provides
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): NewsApiService {
-        return FakeNewsAPIService()
+//        return FakeNewsAPIService() //for testing
         val retrofit = Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://newsapi.org/v2/")
