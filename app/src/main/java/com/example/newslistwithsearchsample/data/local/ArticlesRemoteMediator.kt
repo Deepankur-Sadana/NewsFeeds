@@ -134,7 +134,10 @@ class ArticlesRemoteMediator(
         }
 
         try {
-            val apiResponse = newsApiService.getSearchedNews(page, query = path)//newsApiService.getPopularMovies(page = page)
+            val apiResponse = if (path.isNullOrBlank())
+                newsApiService.getNews(page)
+            else
+                newsApiService.getSearchedNews(page, query = path)
 
             delay(1000L) //TODO For testing only!
 
@@ -152,6 +155,7 @@ class ArticlesRemoteMediator(
                     RemoteKeys(articleID = it.id, prevKey = prevKey, currentPage = page, nextKey = nextKey)
                 }
 
+                //Only saving non queried/(non-manually-searched) data to DB
                 if (path.isEmpty()) {
                     articlesDatabase.getRemoteKeysDao()
                         .insertAll(remoteKeys)
