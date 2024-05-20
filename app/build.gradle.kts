@@ -103,6 +103,15 @@ dependencies {
     // COIL
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+    //Room
+    val  room_version = "2.6.1"
+    implementation ("androidx.room:room-runtime:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
+    implementation ("androidx.room:room-paging:$room_version")
+
+
+
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
     /** for testing coroutines*/
